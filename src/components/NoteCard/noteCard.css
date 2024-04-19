@@ -1,0 +1,104 @@
+.note-container{
+    /* min-width in  defined in notes with the help of grid*/
+    height: 200px;
+    border-radius: 20px;
+    background-color: rgb(224, 179, 244);
+    padding: 10px 15px;
+    box-shadow: 0px 0px 10px #cbe4ff; 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.note-container__active{
+    width: 80svw;
+    height: 70svh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(224, 179, 244);
+    padding: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px #dbecfe; 
+    animation: scaleUp 0.5s ease-out;
+
+}
+
+@keyframes scaleUp {
+    from {
+      transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+.note-day{
+    font-size: .5rem;
+    background-color: rgb(255, 157, 157);
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px;
+   border-radius: 30px;
+}
+
+.note-title{
+    height: 20%;
+    font-size: 1.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.note-title::first-letter {
+    text-transform: capitalize;
+}
+.note-title__active{
+    height: fit-content;
+    font-size: 1.25rem;
+}
+.note.note-title__active::first-letter {
+    text-transform: capitalize;
+}
+
+
+.note-content{
+    font-size: .75rem;
+    overflow: hidden;
+    height: 80%;
+    font-weight: 200;
+}
+.note-content__active{
+    font-size: .75rem;
+    overflow: auto;
+    height: 80%;
+    font-weight: 400;
+}
+
+.note-date{
+    font-size: .5rem;
+    color: rgb(255, 101, 101);
+}
+
+
+.overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgb(0, 0,0,.4);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+}
+.overlay-close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem !important;
+    filter: drop-shadow(0 0 1px rgb(102, 102, 102));
+}
