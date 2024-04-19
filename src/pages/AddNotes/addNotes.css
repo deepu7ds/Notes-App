@@ -1,0 +1,80 @@
+.addNotes-container{
+    width: 90svw;
+    height: 70svh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 30px 40px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px #dbecfe; 
+    animation: scaleUp 0.5s ease-out;
+}
+
+.addNotes-container form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;    
+}
+
+.addNotes-container form #title{
+    flex: 2;
+    border: none;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.addNotes-container form #content{
+    flex: 16;
+    border: none;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.addNotes-container form #importance{
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    color: #333;
+}
+.addNotes-container form button{
+    flex: 1;
+    margin-top: 10px;
+    font-size: 1.25rem;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgb(176, 176, 176);
+    text-shadow: 0 0 1px rgb(76, 76, 76);   
+    cursor: pointer;
+}
+
+.overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgb(0, 0,0,.4);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+}
+.overlay-close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem !important;
+    filter: drop-shadow(0 0 1px rgb(102, 102, 102));
+}
