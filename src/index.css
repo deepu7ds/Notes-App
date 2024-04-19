@@ -7,3 +7,12 @@
 body{
     background-color: rgb(223, 240, 255);
 }
+
+a{
+    text-decoration: none; 
+    color: inherit;
+
+    /* remove the blue tint that appears when an anchor tag is clicked on mobile devices */
+    -webkit-tap-highlight-color: transparent; /* For WebKit browsers */
+    tap-highlight-color: transparent; /* For non-WebKit browsers */
+}

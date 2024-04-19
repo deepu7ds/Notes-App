@@ -1,24 +1,89 @@
+import {
+  Route,
+  Routes,
+  useLocation,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import "./App.css";
-import notes from "./assets/notes.png";
+import HomeContent from "./pages/HomeContent/HomeContent.tsx";
+import Menu from "./pages/Menu/Menu.tsx";
+import Notes from "./pages/Notes/Notes.tsx";
+import ToDo from "./pages/ToDo/ToDo.tsx";
+import Blog from "./pages/Blog/Blog.tsx";
+import SignUp from "./pages/SignUp/SignUp.tsx";
+import Login from "./pages/Login/Login.tsx";
+import { useEffect, useState } from "react";
+import Profile from "./pages/Profile/Profile.tsx";
+import AddNotes from "./pages/AddNotes/AddNotes.tsx";
 
 function App() {
+  const [token, setToken] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  if (token) {
+    sessionStorage.setItem("token", JSON.stringify(token));
+  }
+
+  // condition to make token false when user went to home page
+  useEffect(() => {
+    if (location.pathname === "/") {
+      sessionStorage.removeItem("token");
+      setToken(false);
+    }
+  }, [location]);
+
+  // used so that when page is reloaded the the session won't expire because token was stored in local storage
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const data = JSON.parse(token);
+      setToken(data);
+    }
+  }, []);
+
+  //handle profile click
+  function handleProfileClick() {
+    setOpenProfile((prevOpenProfile) => {
+      const newOpenProfile = !prevOpenProfile;
+      if (newOpenProfile) {
+        navigate("/profile");
+      } else {
+        navigate("/menu/notes");
+      }
+      return newOpenProfile;
+    });
+  }
+
   return (
     <>
       <div className="app-container">
         <div className="navbar">
           <h1>Notes</h1>
+          {token && (
+            <h3 className="user-name" onClick={handleProfileClick}>
+              Hi, {token.user.user_metadata.name}
+            </h3>
+          )}
         </div>
-        <div className="main-content">
-          <div className="image">
-            <img src={notes} alt="" />
-          </div>
-          <div className="bottom-panel">
-            <p>
-              Create & design your <strong>Notes Easily</strong>
-            </p>
-            <button>Get Started</button>
-          </div>
-        </div>
+        <HomeContent />
+        {/* TODO : write condition when user is not logged in not to render any thing and return another page to login first  */}
+        <Routes>
+          <Route path="/signUp" element={<SignUp />}></Route>
+          <Route path="/login" element={<Login setToken={setToken} />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
+
+          <Route path="/menu" element={<Menu />}>
+            <Route path="notes" element={<Notes />}>
+              <Route path="/menu/notes/addnote" element={<AddNotes />}></Route>
+            </Route>
+            <Route path="todo" element={<ToDo />} />
+            <Route path="blog" element={<Blog />} />
+          </Route>
+        </Routes>
       </div>
     </>
   );

@@ -2,10 +2,21 @@
 
 
 .app-container{
-  height: 90svh;
+  height: 100svh;
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  overflow-y: hidden;
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .navbar{
@@ -14,63 +25,16 @@
   display: flex;
   align-items: center;
   padding: 10px 20px;
+  justify-content: space-between;
 }
 
 .navbar h1{
-  font-size: 3rem;
+  font-size: 2.75rem;
 }
 
-.main-content{
-  height: 90svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.user-name {
+  font-size: 1rem;
+  color: black;
+  text-transform: capitalize;
+  cursor: pointer;
 }
-
-.main-content .image-container{
-  height: 60%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.main-content img{
-  display: block;
-  max-width: 90%;
-  max-height: 100%;
-}
-
-.bottom-panel{
-  height: 40%; 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;  /*handle button stretch*/
-  min-width: 300px;
-  gap: 30px;
-}
-
-.bottom-panel p {
-  padding: 0 15px;
-  text-align: center;
-  font-size: 2rem; 
-  color: #87c1ff;
-}
-
-.bottom-panel button {
-  font-family: "Montserrat", sans-serif;
-  padding: 15px 30px; 
-  font-size: 1rem; 
-  color: #fff;
-  background-color: #007BFF; 
-  border: none;
-  border-radius: 5px; 
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
-}
-
-.bottom-panel button:hover {
-  background-color: #0a64c4; 
-}
-
