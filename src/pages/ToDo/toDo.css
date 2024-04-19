@@ -1,0 +1,12 @@
+.todo-container{
+  animation: slideUp 0.5s ease-out ;
+  padding: 0px 20px;
+}
+@keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
