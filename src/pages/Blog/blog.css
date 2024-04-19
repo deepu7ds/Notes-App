@@ -1,0 +1,11 @@
+.blog-container{
+    animation: slideUp 0.5s ease-out ;
+}
+@keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
