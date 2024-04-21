@@ -1,30 +1,36 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./noteCard.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { supabase } from "../../client";
 
 export default function NoteCard({
   id,
+  created_at,
   title,
   content,
   importance,
   open,
   clickHandler,
+  fetchData,
+  moreIconClick,
+  setMoreIconClick,
 }) {
   // Create a new Date object
 
   const priority = importance - 1;
-
-  const date = new Date();
+  const created_at_date = new Date(created_at);
 
   // Convert the date to a string in the format 'Month Day, Year'
-  const dateString = date.toLocaleDateString("en-US", {
+  const dateString = created_at_date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
 
   //finding day
-  const dayNumber = date.getDay(); // this will return number from 0 to 7
+  const dayNumber = created_at_date.getDay(); // this will return number from 0 to 7
+  console.log(dayNumber);
   const days = [
     "Sunday",
     "Monday",
@@ -52,6 +58,28 @@ export default function NoteCard({
     },
   ];
 
+  function moreClickHandler(event) {
+    event.stopPropagation(); // to prevent conditional statement to render this is called event bubbling
+    if (moreIconClick === id) {
+      setMoreIconClick(null);
+    } else {
+      setMoreIconClick(id);
+    }
+  }
+
+  async function deleteHandler(event) {
+    event.stopPropagation();
+    const { error } = await supabase.from("notes").delete().eq("id", id);
+
+    if (error) {
+      console.error("Error deleting note:", error);
+    } else {
+      console.log("Note deleted successfully");
+      fetchData();
+    }
+  }
+
+  function editHandler() {}
   return (
     <>
       <div
@@ -59,21 +87,36 @@ export default function NoteCard({
         style={{ backgroundColor: colors[priority].primary }}
         onClick={() => clickHandler(id)}
       >
-        <div
-          className="note-day"
-          style={{ backgroundColor: colors[priority].secondary }}
-        >
-          {day}
-        </div>
-        <h1 className="note-title">{title}</h1>
-        <p className="note-content">{content}</p>
-        <div
-          className="note-date"
-          style={{ color: colors[priority].secondary }}
-        >
-          <strong>{dateString}</strong>
-        </div>{" "}
-        {/* Insert the date string here */}
+        <>
+          <div className="more-icon">
+            <MoreVertIcon onClick={moreClickHandler} />
+          </div>
+          <div
+            className="note-day"
+            style={{ backgroundColor: colors[priority].secondary }}
+          >
+            {day}
+          </div>
+          <h1 className="note-title">{title}</h1>
+          <p className="note-content">{content}</p>
+          <div
+            className="note-date"
+            style={{ color: colors[priority].secondary }}
+          >
+            <strong>{dateString}</strong>
+          </div>{" "}
+          {/* Insert the date string here */}
+          {moreIconClick === id && (
+            <div className="modification-popup">
+              <button className="delete" onClick={deleteHandler}>
+                Detete
+              </button>
+              <button className="edit" onClick={editHandler}>
+                Edit
+              </button>
+            </div>
+          )}
+        </>
       </div>
       {open && (
         <>

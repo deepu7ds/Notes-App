@@ -1,4 +1,5 @@
 .note-container{
+    position: relative;
     /* min-width in  defined in notes with the help of grid*/
     height: 200px;
     border-radius: 20px;
@@ -101,4 +102,56 @@
     right: 10px;
     font-size: 2rem !important;
     filter: drop-shadow(0 0 1px rgb(102, 102, 102));
+}
+
+.more-icon{
+    padding: 10px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.modification-popup{
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    top: 40px;  /* 20(moreIcon postion) + 10(padding) + 10(extra space)*/
+    right: 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    width: 80px;
+    height: 100px;
+    border-radius: 10px;
+    animation: slideDown 0.5s ease-in-out forwards;
+    transform-origin: top right; 
+}
+
+@keyframes slideDown {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: (1);  /* End with a height of 100px */
+    }
+}
+
+.modification-popup button{
+    border: none;
+    font-size: .75rem;
+    padding: 5px;
+    border-radius: 20px;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgb(176, 176, 176);
+    text-shadow: 0 0 2px rgb(76, 76, 76);   
+    cursor: pointer;
+}
+
+.modification-popup .delete{
+    background-color: rgb(255, 47, 47);
 }
