@@ -1,6 +1,109 @@
 .todo-container{
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgb(221, 221, 221);
+}
+.todo-container.done{
+    background-color: rgb(254, 254, 254);
+    animation: scale .5s ease;
+    transform: scale(1.05);
+    border-radius: 20px;
+    filter: blur(1px);
+}
+.content-wrapper{
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    gap: 10px;
     gap: 20px;
+    align-items: flex-start;
+    background-color: rgb(255, 255, 255);
+}
+.content-wrapper.done{
+    background-color: rgb(247, 247, 247);
+}
+
+.content-wrapper.blur{
+    filter: blur(5px);
+}
+
+@keyframes scale {
+    0%{
+        transform: scale(.9);
+    }
+
+    100%{
+        transform: scale(1.05);
+    }
+}
+
+.todo-container .title{
+    font-size: 1.25rem;
+   
+}
+
+.todo-container .footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
+.todo-container .priority{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(245, 139, 139);
+}
+
+.todo-container .date{
+    color: black;
+    padding-right: 20px;
+}
+
+.done-status{
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 3rem !important;
+    font-weight: bold;
+}
+
+.done-status.done{
+    color: rgb(39, 203, 39);
+}
+
+.done-status.notdone{
+    color: gray;
+}
+
+.todo-container .delete-btn{
+    z-index: 1000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.25rem;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgb(176, 176, 176);
+    text-shadow: 0 0 2px rgb(76, 76, 76);   
+    cursor: pointer;
+    filter: blur(0px) !important;
+}
+
+.todo-container .clear-icon{
+
+    /* i used this just to solve a bug this has no other purpose and it dont want it to render */
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 3rem !important;
+    /* padding: 100px; */
+}
