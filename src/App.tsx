@@ -1,10 +1,4 @@
-import {
-  Route,
-  Routes,
-  useLocation,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import HomeContent from "./pages/HomeContent/HomeContent.tsx";
 import Menu from "./pages/Menu/Menu.tsx";
@@ -16,6 +10,7 @@ import Login from "./pages/Login/Login.tsx";
 import { useEffect, useState } from "react";
 import Profile from "./pages/Profile/Profile.tsx";
 import AddNotes from "./pages/AddNotes/AddNotes.tsx";
+import AddToDo from "./pages/AddToDo/AddToDo.tsx";
 
 function App() {
   const [token, setToken] = useState(false);
@@ -80,7 +75,9 @@ function App() {
             <Route path="notes" element={<Notes />}>
               <Route path="/menu/notes/addnote" element={<AddNotes />}></Route>
             </Route>
-            <Route path="todo" element={<ToDo />} />
+            <Route path="todo" element={<ToDo />}>
+              <Route path="/menu/todo/addtodo" element={<AddToDo />}></Route>
+            </Route>
             <Route path="blog" element={<Blog />} />
           </Route>
         </Routes>

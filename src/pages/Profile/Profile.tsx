@@ -7,7 +7,6 @@ export default function Profile() {
   function handleClick(e) {
     e.preventDefault();
     navigate("/");
-    window.location.reload();
   }
   return (
     <>

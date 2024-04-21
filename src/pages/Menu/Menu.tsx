@@ -1,10 +1,16 @@
-import { NavLink, Outlet, useNavigate, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./menu.css";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 
 export default function Menu() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchChange = (event) => {
+    setSearchInput(event.target.value);
+  };
 
   useEffect(() => {
     const handleBackNavigation = () => {
@@ -23,6 +29,15 @@ export default function Menu() {
     };
   }, []);
 
+  function addHandler() {
+    if (location.pathname === "/menu/notes") {
+      navigate("/menu/notes/addnote");
+    }
+    if (location.pathname === "/menu/todo") {
+      navigate("/menu/todo/addtodo");
+    }
+  }
+
   return (
     <>
       <div className="menu-container">
@@ -31,10 +46,14 @@ export default function Menu() {
             className="search-bar"
             type="text"
             placeholder="searchHere.."
+            value={searchInput}
+            onChange={handleSearchChange}
           />
-          <Link to="/menu/notes/addnote">
-            <AddCircleRoundedIcon className="add-notes__icon" />
-          </Link>
+
+          <AddCircleRoundedIcon
+            className="add-notes__icon"
+            onClick={addHandler}
+          />
         </header>
         <ul>
           {/* use navlink here to show which section i am currently at by changing background color */}
@@ -50,7 +69,7 @@ export default function Menu() {
           </li>
         </ul>
         <div className="menu-content">
-          <Outlet />
+          <Outlet context={searchInput} />
         </div>
       </div>
     </>

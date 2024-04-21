@@ -1,4 +1,8 @@
-.todo-container{
+.todo{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   animation: slideUp 0.5s ease-out ;
   padding: 0px 20px;
 }

@@ -2,20 +2,40 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../client.js";
 import "./notes.css";
 import NoteCard from "../../components/NoteCard/NoteCard";
-import { Outlet } from "react-router";
+import { Outlet, useOutletContext } from "react-router";
 
 export default function Notes() {
   const [openNoteId, setOpenNoteId] = useState(null);
   const [fetchError, setFetchError] = useState(false);
   const [notes, setNotes] = useState([]);
+  const [moreIconClick, setMoreIconClick] = useState(""); // for managing click state of all cards
+
+  const searchInp = useOutletContext();
 
   let email;
-
   const token = sessionStorage.getItem("token");
   if (token) {
     const parsedToken = JSON.parse(token);
     email = parsedToken.user.user_metadata.email;
   }
+
+  // to fetch the latest data
+  async function fetchData() {
+    const { data, error } = await supabase
+      .from("notes")
+      .select()
+      .eq("user_id", email);
+
+    if (error) {
+      console.error("Error fetching data:", error);
+    } else {
+      setNotes(data);
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   useEffect(() => {
     const fetchNotes = async () => {
       const { data, error } = await supabase
@@ -51,26 +71,28 @@ export default function Notes() {
       {fetchError && <p>error</p>}
       <div className="notes">
         {!fetchError &&
-          notes.map((note) => (
-            <NoteCard
-              key={note.id}
-              {...note}
-              open={openNoteId === note.id}
-              clickHandler={handleClick}
-            />
-          ))}
-        {!fetchError && notes.length < 0 && (
-          <p>Add Notes by clicking on the + icon</p>
-        )}
+          notes
+            .filter((note) => {
+              return (
+                searchInp.trim() === "" ||
+                note.title
+                  .toLowerCase()
+                  .includes(searchInp.trim().toLowerCase())
+              );
+            })
+            .map((note) => (
+              <NoteCard
+                key={note.id}
+                {...note}
+                open={openNoteId === note.id}
+                clickHandler={handleClick}
+                fetchData={fetchData}
+                moreIconClick={moreIconClick}
+                setMoreIconClick={setMoreIconClick}
+              />
+            ))}
       </div>
       <Outlet />
     </>
   );
-}
-{
-  /* <NoteCard
-  {...notesContent[0]}
-  open={openNoteId === notesContent[0].id}
-  clickHandler={handleClick}
-/> */
 }

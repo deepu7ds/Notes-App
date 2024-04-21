@@ -59,6 +59,7 @@ export default function SignUp() {
               name="name"
               placeholder=""
               onChange={handleChange}
+              required
             />
           </label>
 
@@ -72,6 +73,7 @@ export default function SignUp() {
               name="email"
               onChange={handleChange}
               placeholder=""
+              required
             />
           </label>
 
@@ -85,13 +87,14 @@ export default function SignUp() {
               name="password"
               onChange={handleChange}
               placeholder=""
+              required
             />
           </label>
           <label className="terms">
             <p>
               <strong>I agree with the term of use</strong>
             </p>
-            <input type="checkbox" />
+            <input type="checkbox" required />
           </label>
 
           <footer>

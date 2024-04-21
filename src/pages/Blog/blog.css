@@ -1,5 +1,6 @@
 .blog-container{
     animation: slideUp 0.5s ease-out ;
+    text-align: center;
 }
 @keyframes slideUp {
     from {

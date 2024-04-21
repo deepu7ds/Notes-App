@@ -11,9 +11,10 @@ export default function AddNotes() {
     content: "",
     importance: "",
   });
-  const navigate = useNavigate();
-  let data;
 
+  const navigate = useNavigate();
+
+  let data;
   const token = sessionStorage.getItem("token");
   if (token) {
     data = JSON.parse(token);
@@ -51,13 +52,13 @@ export default function AddNotes() {
     }
   }
 
-  function clickHandler() {
+  function closeClickHandler() {
     navigate("/menu/notes");
   }
 
   return (
     <>
-      <div className="overlay" onClick={clickHandler}></div>
+      <div className="overlay" onClick={closeClickHandler}></div>
       <div className="addNotes-container">
         <form action="" onSubmit={handleSubmit}>
           <input
@@ -88,7 +89,10 @@ export default function AddNotes() {
           </select>
           <button type="submit">Create</button>
         </form>
-        <CloseRoundedIcon className="overlay-close" onClick={clickHandler} />
+        <CloseRoundedIcon
+          className="overlay-close"
+          onClick={closeClickHandler}
+        />
       </div>
     </>
   );
