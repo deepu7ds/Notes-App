@@ -34,7 +34,7 @@
 
 .user-name {
   font-size: 1rem;
-  color: black;
+  color: rgb(95, 95, 95);
   text-transform: capitalize;
   cursor: pointer;
 }

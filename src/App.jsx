@@ -1,16 +1,16 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
-import HomeContent from "./pages/HomeContent/HomeContent.tsx";
-import Menu from "./pages/Menu/Menu.tsx";
-import Notes from "./pages/Notes/Notes.tsx";
-import ToDo from "./pages/ToDo/ToDo.tsx";
-import Blog from "./pages/Blog/Blog.tsx";
-import SignUp from "./pages/SignUp/SignUp.tsx";
-import Login from "./pages/Login/Login.tsx";
+import HomeContent from "./pages/HomeContent/HomeContent.jsx";
+import Menu from "./pages/Menu/Menu.jsx";
+import Notes from "./pages/Notes/Notes.jsx";
+import ToDo from "./pages/ToDo/ToDo.jsx";
+import Blog from "./pages/Blog/Blog.jsx";
+import SignUp from "./pages/SignUp/SignUp.jsx";
+import Login from "./pages/Login/Login.jsx";
 import { useEffect, useState } from "react";
-import Profile from "./pages/Profile/Profile.tsx";
-import AddNotes from "./pages/AddNotes/AddNotes.tsx";
-import AddToDo from "./pages/AddToDo/AddToDo.tsx";
+import Profile from "./pages/Profile/Profile.jsx";
+import AddNotes from "./pages/AddNotes/AddNotes.jsx";
+import AddToDo from "./pages/AddToDo/AddToDo.jsx";
 
 function App() {
   const [token, setToken] = useState(false);

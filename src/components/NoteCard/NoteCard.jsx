@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
 import "./noteCard.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { supabase } from "../../client";
+import { supabase } from "../../client.js";
 
 export default function NoteCard({
   id,

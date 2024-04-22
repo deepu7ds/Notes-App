@@ -3,7 +3,7 @@ import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import DoneIcon from "@mui/icons-material/Done";
 import { useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
-import { supabase } from "../../client";
+import { supabase } from "../../client.js";
 
 export default function ToDoCard({
   id,

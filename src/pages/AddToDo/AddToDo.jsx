@@ -66,6 +66,8 @@ export default function AddToDo() {
             id="title"
             onChange={handleChange}
             placeholder="task.."
+            maxLength={30}
+            required
           />
           <input
             type="text"
@@ -73,6 +75,7 @@ export default function AddToDo() {
             id="content"
             onChange={handleChange}
             placeholder="details..."
+            maxLength={20}
           />
           <select
             id="importance"
