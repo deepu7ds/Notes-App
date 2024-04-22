@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import "./addNotes.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { supabase } from "../../client";
+import { supabase } from "../../client.js";
 
 export default function AddNotes() {
   const [noteData, setNoteData] = useState({

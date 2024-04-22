@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import "./addToDo.css";
-import { supabase } from "../../client";
+import { supabase } from "../../client.js";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 export default function AddToDo() {
