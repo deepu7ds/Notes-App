@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../client.js";
 import "./notes.css";
-import NoteCard from "../../components/NoteCard/NoteCard";
+import NoteCard from "../../components/NoteCard/NoteCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
 
 export default function Notes() {

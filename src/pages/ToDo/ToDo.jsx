@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../client.js";
 import "./toDo.css";
-import ToDoCard from "../../components/ToDoCard/ToDoCard";
+import ToDoCard from "../../components/ToDoCard/ToDoCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
 
 export default function ToDo() {
