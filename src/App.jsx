@@ -72,7 +72,7 @@ function App() {
           <Route path="/profile" element={<Profile />}></Route>
 
           <Route path="/menu" element={<Menu />}>
-            <Route path="notes" element={<Notes />}>
+            <Route path="/menu/notes" element={<Notes />}>
               <Route path="/menu/notes/addnote" element={<AddNotes />}></Route>
             </Route>
             <Route path="todo" element={<ToDo />}>
