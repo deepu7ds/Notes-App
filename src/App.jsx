@@ -67,11 +67,11 @@ function App() {
         <HomeContent />
         {/* TODO : write condition when user is not logged in not to render any thing and return another page to login first  */}
         <Routes>
-          <Route path="/signUp" element={<SignUp />}></Route>
-          <Route path="/login" element={<Login setToken={setToken} />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="signUp" element={<SignUp />}></Route>
+          <Route path="login" element={<Login setToken={setToken} />}></Route>
+          <Route path="profile" element={<Profile />}></Route>
 
-          <Route path="/menu" element={<Menu />}>
+          <Route path="menu" element={<Menu />}>
             <Route path="/menu/notes" element={<Notes />}>
               <Route path="/menu/notes/addnote" element={<AddNotes />}></Route>
             </Route>
