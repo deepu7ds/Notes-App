@@ -1,6 +1,6 @@
 import "./noteCard.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { supabase } from "../../client.js";
 
 export default function NoteCard({
@@ -12,8 +12,6 @@ export default function NoteCard({
   open,
   clickHandler,
   fetchData,
-  moreIconClick,
-  setMoreIconClick,
 }) {
   // Create a new Date object
 
@@ -57,15 +55,6 @@ export default function NoteCard({
     },
   ];
 
-  function moreClickHandler(event) {
-    event.stopPropagation(); // to prevent conditional statement to render this is called event bubbling
-    if (moreIconClick === id) {
-      setMoreIconClick(null);
-    } else {
-      setMoreIconClick(id);
-    }
-  }
-
   async function deleteHandler(event) {
     event.stopPropagation();
     const { error } = await supabase.from("notes").delete().eq("id", id);
@@ -78,7 +67,6 @@ export default function NoteCard({
     }
   }
 
-  function editHandler() {}
   return (
     <>
       <div
@@ -87,9 +75,10 @@ export default function NoteCard({
         onClick={() => clickHandler(id)}
       >
         <>
-          <div className="more-icon">
-            <MoreVertIcon onClick={moreClickHandler} />
-          </div>
+          <DeleteOutlineOutlinedIcon
+            className="note-deleteIcon"
+            onClick={deleteHandler}
+          />
           <div
             className="note-day"
             style={{ backgroundColor: colors[priority].secondary }}
@@ -105,16 +94,6 @@ export default function NoteCard({
             <strong>{dateString}</strong>
           </div>{" "}
           {/* Insert the date string here */}
-          {moreIconClick === id && (
-            <div className="modification-popup">
-              <button className="delete" onClick={deleteHandler}>
-                Detete
-              </button>
-              <button className="edit" onClick={editHandler}>
-                Edit
-              </button>
-            </div>
-          )}
         </>
       </div>
       {open && (

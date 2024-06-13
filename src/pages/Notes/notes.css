@@ -3,6 +3,7 @@
     grid-template-columns: repeat(auto-fit, minmax(45svw,1fr));
     gap: 15px;
     animation: slideUp .5s linear ;
+    grid-auto-flow: dense; 
 }
 @keyframes slideUp {
   from {

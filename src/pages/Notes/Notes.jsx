@@ -8,7 +8,6 @@ export default function Notes() {
   const [openNoteId, setOpenNoteId] = useState(null);
   const [fetchError, setFetchError] = useState(false);
   const [notes, setNotes] = useState([]);
-  const [moreIconClick, setMoreIconClick] = useState(""); // for managing click state of all cards
 
   const searchInp = useOutletContext();
 
@@ -87,8 +86,6 @@ export default function Notes() {
                 open={openNoteId === note.id}
                 clickHandler={handleClick}
                 fetchData={fetchData}
-                moreIconClick={moreIconClick}
-                setMoreIconClick={setMoreIconClick}
               />
             ))}
       </div>
