@@ -14,3 +14,14 @@
       transform: translateY(0);
     }
   }
+
+  
+  .task-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+    .todo-date{
+      margin: 10px;
+      font-weight: 600;
+    }

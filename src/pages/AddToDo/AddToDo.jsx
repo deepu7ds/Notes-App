@@ -8,8 +8,7 @@ export default function AddToDo() {
   const [todoData, setTodoData] = useState({
     user_id: "",
     title: "",
-    content: "",
-    importance: "",
+    done: "",
   });
 
   const navigate = useNavigate();
@@ -41,8 +40,7 @@ export default function AddToDo() {
       {
         user_id: todoData.user_id,
         title: todoData.title,
-        content: todoData.content,
-        importance: todoData.importance,
+        done: false,
       },
     ]);
 
@@ -69,25 +67,6 @@ export default function AddToDo() {
             maxLength={30}
             required
           />
-          <input
-            type="text"
-            name="content"
-            id="content"
-            onChange={handleChange}
-            placeholder="details..."
-            maxLength={20}
-          />
-          <select
-            id="importance"
-            name="importance"
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select importance</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
           <button type="submit">Create</button>
         </form>
         <CloseRoundedIcon

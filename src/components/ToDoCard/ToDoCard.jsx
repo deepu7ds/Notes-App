@@ -1,127 +1,45 @@
 import "./toDoCard.css";
-import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
-import DoneIcon from "@mui/icons-material/Done";
 import { useState } from "react";
-import ClearIcon from "@mui/icons-material/Clear";
 import { supabase } from "../../client.js";
+import IconButton from "@mui/material/IconButton";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
-export default function ToDoCard({
-  id,
-  created_at,
-  title,
-  content,
-  importance,
-  open,
-  clickHandler,
-  fetchData,
-  isDeleted,
-  setIsDeleted,
-}) {
-  const [done, setDone] = useState(false);
+export default function ToDoCard({ id, title, done, fetchData }) {
+  const [selected, setSelected] = useState(done);
 
-  const priority = importance - 1;
-  const created_at_date = new Date(created_at);
+  const handleClick = async () => {
+    setSelected(!selected);
 
-  const dateString = created_at_date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+    const { error } = await supabase
+      .from("todo")
+      .update({ done: !selected })
+      .eq("id", id);
 
-  const priorityArray = [
-    {
-      primary: "#FEB0B0",
-      secondary: "#EA7474",
-      content: "High",
-    },
-    {
-      primary: "#F3F7A9",
-      secondary: "#D8E209",
-      content: "Medium",
-    },
-    {
-      primary: "#B8F3C9",
-      secondary: "#47E209",
-      content: "Low",
-    },
-  ];
+    if (error) {
+      console.error("Error updating task:", error);
+    }
+  };
 
-  function doneChangeHandler(event) {
-    event.stopPropagation();
-    setDone(!done);
-  }
-
-  async function deleteHandler(event) {
-    event.stopPropagation();
+  const handleDeleteClick = async () => {
     const { error } = await supabase.from("todo").delete().eq("id", id);
 
     if (error) {
-      console.error("Error deleting todo:", error);
+      console.error("Error deleting task:", error);
     } else {
-      console.log("todo deleted successfully");
-      fetchData();
+      fetchData(); // Fetch the latest data after deleting a todo
     }
-  }
+  };
 
-  function deleteOpener(event) {
-    event.stopPropagation();
-    setIsDeleted(id);
-  }
-  function deleteClearHandler(event) {
-    event.stopPropagation();
-    setIsDeleted(null);
-  }
   return (
     <>
-      <div
-        className={`todo-container ${done ? "done" : ""}
-        }`}
-        style={done ? {} : { backgroundColor: priorityArray[priority].primary }}
-        onClick={deleteOpener}
-      >
-        <div
-          className={`content-wrapper ${isDeleted === id ? "blur" : ""} ${
-            done ? "done" : ""
-          }`}
-          style={
-            done ? {} : { backgroundColor: priorityArray[priority].primary }
-          }
-        >
-          <h3 className="title">{title}</h3>
-          <p className="content">{content}</p>
-          <div className="footer">
-            <p
-              className="priority"
-              style={{ backgroundColor: priorityArray[priority].secondary }}
-            >
-              {priorityArray[priority].content}
-            </p>
-            <p className="date">
-              <strong>{dateString}</strong>
-            </p>
-          </div>
-          {done && (
-            <DoneIcon
-              className="done-status done"
-              onClick={doneChangeHandler}
-            />
-          )}
-          {!done && (
-            <RemoveDoneIcon
-              className="done-status notdone"
-              onClick={doneChangeHandler}
-            />
-          )}
-        </div>
-        {isDeleted === id && (
-          <button className="delete-btn" onClick={deleteHandler}>
-            Delete
-          </button>
-        )}
-        {isDeleted === id && (
-          // it is used just to solve a bug it has no other purpose
-          <ClearIcon className="clear-icon" onClick={deleteClearHandler} />
-        )}
+      <div className={`task ${selected ? "done" : ""}`}>
+        <IconButton onClick={handleClick}>
+          {selected ? <RadioButtonCheckedIcon /> : <RadioButtonUncheckedIcon />}
+        </IconButton>
+        <div className="task-name">{title}</div>
+        <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />
       </div>
     </>
   );

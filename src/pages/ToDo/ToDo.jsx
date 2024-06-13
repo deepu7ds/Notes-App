@@ -5,11 +5,8 @@ import ToDoCard from "../../components/ToDoCard/ToDoCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
 
 export default function ToDo() {
-  const [openTodoId, setOpenTodoId] = useState(null);
   const [fetchError, setFetchError] = useState(false);
   const [todos, setTodos] = useState([]);
-  const [moreIconClick, setMoreIconClick] = useState(""); // for managing click state of all cards
-  const [isDeleted, setIsDeleted] = useState("");
 
   const searchInp = useOutletContext();
 
@@ -43,7 +40,8 @@ export default function ToDo() {
       const { data, error } = await supabase
         .from("todo")
         .select()
-        .eq("user_id", email);
+        .eq("user_id", email)
+        .order("created_at", { ascending: false });
 
       console.log(data);
       console.log(error);
@@ -60,41 +58,46 @@ export default function ToDo() {
 
     fetchNotes();
   }, []);
-  const handleClick = (id) => {
-    if (openTodoId === id) {
-      setOpenTodoId(null); // Close the todo if it's already open
-    } else {
-      setOpenTodoId(id); // Open the todo
+
+  const sortedTodos = [...todos].sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
+
+  const todosByDate = sortedTodos.reduce((groups, todo) => {
+    const date = new Date(todo.created_at).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+    if (!groups[date]) {
+      groups[date] = [];
     }
-  };
+    groups[date].push(todo);
+    return groups;
+  }, {});
 
   return (
     <>
       {fetchError && <p>error</p>}
       <div className="todo">
         {!fetchError &&
-          todos
-            .filter((todo) => {
-              return (
-                searchInp.trim() === "" ||
-                todo.title
-                  .toLowerCase()
-                  .includes(searchInp.trim().toLowerCase())
-              );
-            })
-            .map((todo) => (
-              <ToDoCard
-                key={todo.id}
-                {...todo}
-                open={openTodoId === todo.id}
-                clickHandler={handleClick}
-                fetchData={fetchData}
-                moreIconClick={moreIconClick}
-                setMoreIconClick={setMoreIconClick}
-                isDeleted={isDeleted}
-                setIsDeleted={setIsDeleted}
-              />
-            ))}
+          Object.entries(todosByDate).map(([date, todos]) => (
+            <div className="task-container">
+              <h3 className="todo-date">{date}</h3>
+              {todos
+                .filter((todo) => {
+                  return (
+                    searchInp.trim() === "" ||
+                    todo.title
+                      .toLowerCase()
+                      .includes(searchInp.trim().toLowerCase())
+                  );
+                })
+                .map((todo) => (
+                  <ToDoCard key={todo.id} {...todo} fetchData={fetchData} />
+                ))}
+            </div>
+          ))}
       </div>
       <Outlet />
     </>
