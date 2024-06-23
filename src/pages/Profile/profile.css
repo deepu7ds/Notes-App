@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playwrite+NZ:wght@100..400&display=swap');
 .profile-container{
     /* positon absolute to make the sign in container start from bottom */
     position: absolute;
@@ -14,12 +14,8 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    padding: 40px 20px;
-    animation: slideUp 0.5s ease-out forwards;
-    font-family: "Kanit", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-
+    padding: 20px 20px;
+    animation: slideUp 0.5s ease-out forwards;    
 }
 
 @keyframes slideUp {
@@ -30,17 +26,71 @@
       transform: translateY(0);
     }
   }
-  
-.sign-out{
-    font-size: 1.25rem;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    font-weight: bold;
-    box-shadow: 0 0 5px rgb(176, 176, 176);
-    text-shadow: 0 0 2px rgb(76, 76, 76);   
-    cursor: pointer;
+
+.profile-container .close-icon{
+  position: fixed;
+  font-size: 2rem;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.profile-container header{
+  text-align: center;
+}
+
+.profile-container .username{
+  text-transform: capitalize;
+  font-size: 2.5rem;
+  /* color: rgb(255, 102, 127); */
+}
+
+.profile-container .email{
+  /* color: rgb(255, 214, 221); */
+}
+
+.custom-hr {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.profile-container .content{
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1rem;
+  text-align: center;
+  background-color: rgb(255, 214, 221);
+  border-radius: 20px;
+  padding: 10px 0px;
+}
+
+.content h3{
+  color: rgb(255, 102, 127);
+}
+
+.content p{
+  color: black
+}
+.profile-container button{
+  width: 50%;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgb(251, 198, 198);
+  text-shadow: 0 0 2px rgb(255, 207, 207);
+  cursor: pointer;
+  background-color: rgb(255, 102, 127);
+  color: white;
+}
+
+.profile-container .sign-out{
+  background-color: rgb(255, 214, 221);
+  color: black;
 }
