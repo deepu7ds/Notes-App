@@ -3,11 +3,13 @@ import { supabase } from "../../client.js";
 import "./notes.css";
 import NoteCard from "../../components/NoteCard/NoteCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
+import Spinner from "../../components/Spinner/Spinner.jsx";
 
 export default function Notes() {
   const [openNoteId, setOpenNoteId] = useState(null);
   const [fetchError, setFetchError] = useState(false);
   const [notes, setNotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchInp = useOutletContext();
 
@@ -17,9 +19,22 @@ export default function Notes() {
     const parsedToken = JSON.parse(token);
     email = parsedToken.user.user_metadata.email;
   }
+  const cachedNotes = sessionStorage.getItem("cachedNotes");
 
-  // to fetch the latest data
+  // Check cache before fetching data
+  useEffect(() => {
+    if (cachedNotes) {
+      setNotes(JSON.parse(cachedNotes));
+    } else {
+      fetchData();
+    }
+  }, [email]);
+
+  // Fetch the latest data
   async function fetchData() {
+    if (!cachedNotes) {
+      setIsLoading(true); // Step 2: Set loading to true before fetching
+    }
     const { data, error } = await supabase
       .from("notes")
       .select()
@@ -27,10 +42,14 @@ export default function Notes() {
 
     if (error) {
       console.error("Error fetching data:", error);
+      setFetchError(true);
     } else {
-      setNotes(data);
+      setNotes(data); // Assuming you want to set the fetched data to notes
+      sessionStorage.setItem("cachedNotes", JSON.stringify(data)); // Cache the fetched data
     }
+    setIsLoading(false); // Step 3: Set loading to false after fetching
   }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -57,6 +76,7 @@ export default function Notes() {
 
     fetchNotes();
   }, []);
+
   const handleClick = (id) => {
     if (openNoteId === id) {
       setOpenNoteId(null); // Close the note if it's already open
@@ -67,9 +87,11 @@ export default function Notes() {
 
   return (
     <>
-      {fetchError && <p>error</p>}
+      {isLoading && <Spinner />}
+      {fetchError && <p>Error fetching notes.</p>}
       <div className="notes">
         {!fetchError &&
+          !isLoading &&
           notes
             .filter((note) => {
               return (

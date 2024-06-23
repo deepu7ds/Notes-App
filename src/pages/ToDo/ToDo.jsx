@@ -3,10 +3,12 @@ import { supabase } from "../../client.js";
 import "./toDo.css";
 import ToDoCard from "../../components/ToDoCard/ToDoCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
+import Spinner from "../../components/Spinner/Spinner.jsx";
 
 export default function ToDo() {
   const [fetchError, setFetchError] = useState(false);
   const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchInp = useOutletContext();
 
@@ -17,8 +19,21 @@ export default function ToDo() {
     email = parsedToken.user.user_metadata.email;
   }
 
-  // to fetch the latest data
+  const cachedTodos = sessionStorage.getItem("cachedTodos");
+  // Check cache before fetching data
+  useEffect(() => {
+    if (cachedTodos) {
+      setTodos(JSON.parse(cachedTodos));
+    } else {
+      fetchData();
+    }
+  }, [email]);
+
+  // Fetch the latest data
   async function fetchData() {
+    if (!cachedTodos) {
+      setIsLoading(true);
+    }
     const { data, error } = await supabase
       .from("todo")
       .select()
@@ -26,11 +41,14 @@ export default function ToDo() {
 
     if (error) {
       console.error("Error fetching data:", error);
+      setFetchError(true);
     } else {
       setTodos(data);
+      sessionStorage.setItem("cachedTodos", JSON.stringify(data)); // Cache the fetched data
+      setFetchError(false);
     }
+    setIsLoading(false);
   }
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -78,9 +96,11 @@ export default function ToDo() {
 
   return (
     <>
+      {isLoading && <Spinner />}
       {fetchError && <p>error</p>}
       <div className="todo">
         {!fetchError &&
+          !isLoading &&
           Object.entries(todosByDate).map(([date, todos]) => (
             <div className="task-container">
               <h3 className="todo-date">{date}</h3>

@@ -2,17 +2,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(45svw,1fr));
     gap: 15px;
-    animation: slideUp .5s linear ;
+    /* animation: slideUp .3s linear ; */
     grid-auto-flow: dense; 
 }
-@keyframes slideUp {
-  from {
-    transform: translateY(100svh);
-  }
-  to {
-    transform: translateY(40svh);
-  }
-}
+
 @media (min-width: 630px) {
     .notes {
       grid-template-columns:repeat(auto-fit, minmax(30svw, 1fr));
