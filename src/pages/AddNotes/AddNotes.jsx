@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./addNotes.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -11,6 +11,24 @@ export default function AddNotes() {
     content: "",
     importance: "",
   });
+
+  const [center, setCenter] = useState({ x: -50, y: -50 });
+
+  const handleMouseClick = (e) => {
+    const xPercentage = -100 + (e.clientX / window.innerWidth) * 100;
+    const yPercentage = -100 + (e.clientY / window.innerHeight) * 100;
+    setCenter({ x: xPercentage, y: yPercentage });
+  };
+
+  useEffect(() => {
+    // Attach the event listener to the window when the component mounts
+    window.addEventListener("click", handleMouseClick);
+
+    // Return a cleanup function to remove the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("click", handleMouseClick);
+    };
+  }, []);
 
   const navigate = useNavigate();
 
@@ -58,8 +76,19 @@ export default function AddNotes() {
 
   return (
     <>
-      <div className="overlay" onClick={closeClickHandler}></div>
-      <div className="addNotes-container">
+      <div
+        className="overlay"
+        onClick={() => {
+          closeClickHandler();
+        }}
+      ></div>
+      <div
+        className="addNotes-container"
+        style={{
+          "--x": `${center.x}%`,
+          "--y": `${center.y}%`,
+        }}
+      >
         <form action="" onSubmit={handleSubmit}>
           <input
             type="text"
