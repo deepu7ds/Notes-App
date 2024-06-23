@@ -41,6 +41,8 @@
 .add-notes__icon{
     font-size: 3.25rem !important;
     color: #157dec;
+    cursor: pointer;
+    outline: none;
 } 
 
 ul{

@@ -103,7 +103,7 @@ export default function SignUp() {
             </button>
             <span>OR</span>
 
-            <p>
+            <p style={{ fontWeight: 400 }}>
               Already have an account?{" "}
               <Link to="/login">
                 <strong>Login</strong>

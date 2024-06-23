@@ -41,7 +41,8 @@ function App() {
   }, []);
 
   //handle profile click
-  function handleProfileClick() {
+  function handleProfileClick(e) {
+    e.preventDefault();
     setOpenProfile((prevOpenProfile) => {
       const newOpenProfile = !prevOpenProfile;
       if (newOpenProfile) {

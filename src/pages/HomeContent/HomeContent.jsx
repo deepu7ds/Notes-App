@@ -20,7 +20,7 @@ export default function HomeContent() {
             Create & design your <strong>Notes Easily</strong>
           </p>
           <button onClick={handleClick}>Get Started</button>
-          <span>
+          <span style={{ fontWeight: "300" }}>
             Already have an account?{" "}
             <strong>
               <Link to="/login">Log In</Link>

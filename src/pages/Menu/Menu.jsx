@@ -64,9 +64,6 @@ export default function Menu() {
           <li>
             <NavLink to="/menu/todo">To Do</NavLink>
           </li>
-          <li>
-            <NavLink to="/menu/blog">Blog</NavLink>
-          </li>
         </ul>
         <div className="menu-content">
           <Outlet context={searchInput} />

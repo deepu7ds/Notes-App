@@ -74,7 +74,7 @@ export default function Login({ setToken }) {
               Login
             </button>
             <span>OR</span>
-            <p>
+            <p style={{ fontWeight: 400 }}>
               Don't have an account?{" "}
               <Link to="/signUp">
                 <strong>Sign up</strong>

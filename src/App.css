@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Madimi+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ojuju:wght@200..800&display=swap');
 
-
 .app-container{
   height: 100svh;
   font-family: "Montserrat", sans-serif;
@@ -29,12 +28,18 @@
 }
 
 .navbar h1{
-  font-size: 2.75rem;
+  font-size: 2.5rem;
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .user-name {
   font-size: 1rem;
-  color: rgb(95, 95, 95);
+  color: rgb(21, 21, 21);
   text-transform: capitalize;
   cursor: pointer;
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
