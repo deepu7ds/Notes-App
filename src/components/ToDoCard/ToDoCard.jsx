@@ -34,12 +34,21 @@ export default function ToDoCard({ id, title, done, fetchData }) {
 
   return (
     <>
-      <div className={`task ${selected ? "done" : ""}`}>
-        <IconButton onClick={handleClick}>
+      <div
+        className={`task ${selected ? "done" : "notDone"}`}
+        onClick={handleClick}
+      >
+        <IconButton>
           {selected ? <RadioButtonCheckedIcon /> : <RadioButtonUncheckedIcon />}
         </IconButton>
         <div className="task-name">{title}</div>
-        <DeleteOutlineOutlinedIcon onClick={handleDeleteClick} />
+        <DeleteOutlineOutlinedIcon
+          style={{ cursor: "pointer" }}
+          onClick={(event) => {
+            event.stopPropagation(); // Prevents the click event from reaching the parent div
+            handleDeleteClick();
+          }}
+        />
       </div>
     </>
   );

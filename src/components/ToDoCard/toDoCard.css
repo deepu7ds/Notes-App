@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
 .task{
     display: flex;
     background-color: #bedcfb;
@@ -6,28 +8,64 @@
     align-items: center;
     border-radius: 15px;
     font-weight: bold;
-    transition: transform 0.3s ease; 
-    gap: 10px;
-}
-
-.task:hover{
-    transform: scale(1.05);
-}
-
-.task:nth-child(even) {
-    background-color: #d5eaff;
-    color: black;
-    
-}
-
-.task:nth-child(odd) {
-    background-color: #5aa8f6;
-    color: white;
+    gap: 15px;
+    box-shadow: 0px 0px 10px #cbe4ff;
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+    font-style: normal;
 }
 
 .task-name {
     text-transform: capitalize;
+    font-weight: 400;
   }
 .task.done .task-name {
     text-decoration: line-through;
+    color: white;
+    filter: blur(.2px);
+    font-weight: 500;
+}
+
+@keyframes fillSideways {
+    from {
+        background-size: 0% 100%;
+    }
+    to {
+        background-size: 100% 100%;
+    }
+}
+
+@keyframes popEffect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05); /* Scales up */
+    }
+    100% {
+        transform: scale(1); /* Scales back down */
+    }
+}
+
+.task.done {
+    background-image: linear-gradient(to right,  #5cbef3, #2b95ff); /* Example gradient */
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    animation: fillSideways 0.3s forwards, popEffect 0.3s ease-in-out; /* Adjust duration as needed */
+}
+
+@keyframes unfillSideways {
+    from {
+        background-size: 100% 100%;
+    }
+    to {
+        background-size: 0% 100%;
+    }
+}
+
+.task.notDone {
+    background-image: linear-gradient(to right, #5cbef3, #2b95ff); /* Same gradient as .done for consistency */
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* Start fully "filled" */
+    animation: unfillSideways 0.3s forwards;
 }
