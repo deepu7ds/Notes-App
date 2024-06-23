@@ -13,8 +13,18 @@
     gap: 20px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px #dbecfe; 
-    animation: scaleUp 0.5s ease-out;
+    animation: scaleUp3 0.3s ease-out;
 }
+@keyframes scaleUp3 {
+    from {
+      transform: translate(-50%, -50%) scale(0); 
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+
 
 .addtodo-container form{
     height: 100%;
