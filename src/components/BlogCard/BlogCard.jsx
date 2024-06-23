@@ -1,1 +1,0 @@
-import "./blogCard.css";

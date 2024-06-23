@@ -78,7 +78,6 @@ function App() {
             <Route path="todo" element={<ToDo />}>
               <Route path="/menu/todo/addtodo" element={<AddToDo />}></Route>
             </Route>
-            <Route path="blog" element={<Blog />} />
           </Route>
         </Routes>
       </div>
