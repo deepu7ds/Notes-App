@@ -1,4 +1,5 @@
 import "./noteCard.css";
+import { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { supabase } from "../../client.js";
@@ -14,6 +15,12 @@ export default function NoteCard({
   fetchData,
 }) {
   // Create a new Date object
+  const [center, setCenter] = useState({ x: -50, y: -50 });
+  const handleMouseClick = (e) => {
+    const xPercentage = -100 + (e.clientX / window.innerWidth) * 100;
+    const yPercentage = -100 + (e.clientY / window.innerHeight) * 100;
+    setCenter({ x: xPercentage, y: yPercentage });
+  };
 
   const priority = importance - 1;
   const created_at_date = new Date(created_at);
@@ -27,7 +34,6 @@ export default function NoteCard({
 
   //finding day
   const dayNumber = created_at_date.getDay(); // this will return number from 0 to 7
-  console.log(dayNumber);
   const days = [
     "Sunday",
     "Monday",
@@ -72,7 +78,10 @@ export default function NoteCard({
       <div
         className="note-container"
         style={{ backgroundColor: colors[priority].primary }}
-        onClick={() => clickHandler(id)}
+        onClick={(e) => {
+          clickHandler(id);
+          handleMouseClick(e); // Attach the handleMouseClick here
+        }}
       >
         <>
           <DeleteOutlineOutlinedIcon
@@ -100,8 +109,12 @@ export default function NoteCard({
         <>
           <div className="overlay" onClick={() => clickHandler(id)}></div>
           <div
-            className="note-container__active"
-            style={{ backgroundColor: colors[priority].primary }}
+            className={`note-container__active ${open ? "opening" : "closing"}`}
+            style={{
+              backgroundColor: colors[priority].primary,
+              "--x": `${center.x}%`,
+              "--y": `${center.y}%`,
+            }}
           >
             <div
               className="note-day"

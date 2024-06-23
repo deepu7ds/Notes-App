@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
 .note-container{
     position: relative;
     /* min-width in  defined in notes with the help of grid*/
@@ -9,12 +11,15 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: transform 0.2s ease
-
+    transition: transform 0.2s ease;
+    font-family: "Kanit", sans-serif;
+    font-weight: 600;
+    font-style: normal;
 }
 
 .note-container:hover{
     transform: scale(1.02);
+    cursor: pointer;
 }
 
 .note-container__active{
@@ -32,13 +37,12 @@
     gap: 20px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px #dbecfe; 
-    animation: scaleUp 0.5s ease-out;
-
+    animation: scaleUp .2s linear;
 }
 
 @keyframes scaleUp {
     from {
-      transform: translate(-50%, -50%) scale(0);
+      transform: translate(var(--x),var(--y)) scale(0); 
     }
     to {
       transform: translate(-50%, -50%) scale(1);
@@ -108,6 +112,7 @@
     right: 10px;
     font-size: 2rem !important;
     filter: drop-shadow(0 0 1px rgb(102, 102, 102));
+    cursor: pointer;
 }
 
 .note-deleteIcon{
