@@ -4,7 +4,6 @@ import HomeContent from "./pages/HomeContent/HomeContent.jsx";
 import Menu from "./pages/Menu/Menu.jsx";
 import Notes from "./pages/Notes/Notes.jsx";
 import ToDo from "./pages/ToDo/ToDo.jsx";
-import Blog from "./pages/Blog/Blog.jsx";
 import SignUp from "./pages/SignUp/SignUp.jsx";
 import Login from "./pages/Login/Login.jsx";
 import { useEffect, useState } from "react";
