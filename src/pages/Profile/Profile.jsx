@@ -60,8 +60,11 @@ export default function Profile() {
     navigate("/menu/notes");
   }
   function handleSignOut(e) {
-    e.preventDefault();
-    navigate("/");
+    const isConfirmed = window.confirm("Are you sure you want to sign out?");
+    if (isConfirmed) {
+      e.preventDefault();
+      navigate("/");
+    }
   }
   function handleResetPass() {}
 
