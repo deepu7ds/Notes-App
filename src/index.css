@@ -1,5 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
 
+:root {
+    --background-light: rgb(223, 240, 255); /* Lightest blue */
+    --primary-light : rgb(255, 255, 255);
+    --secondary-light: #a8d2ff;
+    --base-light: #429dfd; /* Base blue */
+    --text-color-light : black; 
+    --active-text-color-light :rgb(255, 255, 255);
+    --box-shadow-light : #b1b1b1;
+
+    --background-dark: #161616; /* Dark grey for background */
+    --primary-dark: #323232; /* Slightly lighter grey for primary surfaces */
+    --secondary-dark: #d8c0f8; /* Purple for secondary elements */
+    --base-dark: #af70fc; /* Light purple for base elements */
+    --text-color-dark: #E0E0E0; /* Light grey for text */
+    --active-text-color-dark: #ffffff; /* Brighter purple for active text */
+    --box-shadow-dark: #868686; 
+  }
+
+.dark-theme {
+    --background: var(--background-dark);
+    --primary: var(--primary-dark);
+    --secondary: var(--secondary-dark);
+    --base: var(--base-dark);
+    --text-color: var(--text-color-dark);
+    --active-text-color: var(--active-text-color-dark);
+    --box-shadow: var(--box-shadow-dark);
+}
+.light-theme {
+    --background: var(--background-light);
+    --primary: var(--primary-light);
+    --secondary : var(--secondary-light);
+    --base: var(--base-light);
+    --text-color: var(--text-color-light);
+    --active-text-color : var(--active-text-color-light);
+    --box-shadow : var(--box-shadow-light)
+}
+
+
 *{
     box-sizing: border-box;
     margin: 0px;
@@ -12,7 +50,8 @@
 }
 
 body{
-    background-color: rgb(223, 240, 255);
+    background-color: var(--background);
+    transition: background-color 0.3s ease;
 }
 
 a{

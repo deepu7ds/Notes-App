@@ -38,6 +38,50 @@ export default function Menu() {
     }
   }
 
+  useEffect(() => {
+    const menuContainer = document.querySelector(".menu-container");
+    const maxHeight = "100svh";
+    const minHeight = "90svh";
+    const upScrollThreshold = 200;
+    const downScrollThreshold = 100;
+
+    let lastScrollTop = 0; // To determine scroll direction
+
+    const handleScroll = () => {
+      let newHeight = minHeight;
+      const currentScrollTop = menuContainer.scrollTop;
+
+      if (currentScrollTop > lastScrollTop) {
+        // Scrolling down
+        if (currentScrollTop > upScrollThreshold) {
+          let calculatedHeight =
+            parseInt(minHeight) + (currentScrollTop - upScrollThreshold);
+          newHeight = `${calculatedHeight}svh`;
+          if (calculatedHeight >= parseInt(maxHeight)) {
+            newHeight = maxHeight;
+          }
+        }
+      } else {
+        // Scrolling up
+        if (currentScrollTop < downScrollThreshold) {
+          let calculatedHeight =
+            parseInt(maxHeight) - (downScrollThreshold - currentScrollTop);
+          newHeight = `${calculatedHeight}svh`;
+          if (calculatedHeight <= parseInt(minHeight)) {
+            newHeight = minHeight;
+          }
+        }
+      }
+
+      menuContainer.style.height = newHeight;
+      lastScrollTop = currentScrollTop; // Update lastScrollTop
+    };
+
+    menuContainer.addEventListener("scroll", handleScroll);
+
+    return () => menuContainer.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       <div className="menu-container">

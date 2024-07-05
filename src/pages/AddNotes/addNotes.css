@@ -5,56 +5,61 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: var(--primary);
     padding: 30px 40px;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 20px;
     border-radius: 20px;
-    box-shadow: 0px 0px 10px #dbecfe; 
+    box-shadow: 0px 0px 10px var(--box-shadow); 
     animation: scaleUp2 .3s ease-out;
 }
 
 @keyframes scaleUp2 {
     from {
-      transform: translate(var(--x),var(--y)) scale(0); 
+        transform: translate(var(--x),var(--y)) scale(0); 
     }
     to {
-      transform: translate(-50%, -50%) scale(1);
+        transform: translate(-50%, -50%) scale(1);
     }
-  }
+}
 
 
 .addNotes-container form{
-    height: 100%;
-    display: flex;
-    flex-direction: column;    
-}
-
-.addNotes-container form #title{
-    flex: 2;
-    border: none;
-    font-size: 1rem;
-    padding: 10px;
-}
-
-.addNotes-container form #content{
-    flex: 16;
-    border: none;
-    font-size: 1rem;
-    padding: 10px;
-}
-
-.addNotes-container form #importance{
-    flex: 1;
-    padding: 10px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    background-color: #f8f8f8;
-    color: #333;
-}
+      height: 100%;
+      display: flex;
+      flex-direction: column;    
+    }
+    
+    .addNotes-container form #title{
+        flex: 2;
+        border: none;
+        font-size: 1rem;
+        padding: 10px;
+        background-color: var(--primary);
+        color: var(--text-color);
+    }
+    
+    .addNotes-container form #content{
+        flex: 16;
+        border: none;
+        font-size: 1rem;
+        padding: 10px;
+        background-color: var(--primary);
+        color: var(--text-color);
+    }
+    
+    .addNotes-container form #importance{
+        flex: 1;
+        padding: 10px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #f8f8f8;
+        background-color: var(--primary);
+        color: var(--text-color);
+    }
 .addNotes-container form button{
     flex: 1;
     margin-top: 10px;
@@ -66,9 +71,12 @@
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: bold;
-    box-shadow: 0 0 5px rgb(176, 176, 176);
     text-shadow: 0 0 1px rgb(76, 76, 76);   
     cursor: pointer;
+}
+
+.dark-theme .addNotes-container form button{
+    background-color: var(--base);
 }
 
 .overlay{

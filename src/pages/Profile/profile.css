@@ -7,15 +7,16 @@
     min-height: 30svh;
     width: 100%; 
     overflow-y: auto;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--primary);
     border-radius: 30px 30px 0 0;
-    box-shadow: 0px 0px 10px rgba(152, 214, 255, 0.921); 
+    box-shadow: 0px 0px 10px var(--box-shadow); 
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
     padding: 20px 20px;
-    animation: slideUp 0.5s ease-out forwards;    
+    animation: slideUp 0.5s ease-out forwards;   
+    color: var(--text-color); 
 }
 
 @keyframes slideUp {
@@ -42,16 +43,15 @@
 .profile-container .username{
   text-transform: capitalize;
   font-size: 2.5rem;
-  /* color: rgb(255, 102, 127); */
 }
 
 .profile-container .email{
-  /* color: rgb(255, 214, 221); */
+  color: rgb(197, 197, 197);
 }
 
 .custom-hr {
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid var(--text-color);
 }
 
 .profile-container .content{
@@ -61,18 +61,14 @@
   align-items: center;
   font-size: 1rem;
   text-align: center;
-  background-color: rgb(255, 214, 221);
   border-radius: 20px;
   padding: 10px 0px;
 }
 
 .content h3{
-  color: rgb(255, 102, 127);
+  text-decoration: underline;
 }
 
-.content p{
-  color: black
-}
 .profile-container button{
   width: 50%;
   font-size: 1rem;
@@ -83,14 +79,20 @@
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: bold;
-  box-shadow: 0 0 10px rgb(251, 198, 198);
-  text-shadow: 0 0 2px rgb(255, 207, 207);
+  box-shadow: 0 0 10px var(--box-shadow);
   cursor: pointer;
   background-color: rgb(255, 102, 127);
   color: white;
 }
 
+.dark-theme .profile-container button{
+  background-color: var(--base);
+}
 .profile-container .sign-out{
-  background-color: rgb(255, 214, 221);
+  background-color:  rgb(254, 181, 193);
   color: black;
+}
+
+.dark-theme .profile-container .sign-out{
+  background-color: rgb(222, 222, 222);
 }

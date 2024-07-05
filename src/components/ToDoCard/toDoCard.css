@@ -9,19 +9,24 @@
     border-radius: 15px;
     font-weight: bold;
     gap: 15px;
-    box-shadow: 0px 0px 10px #cbe4ff;
+    box-shadow: 0px 0px 5px var(--box-shadow);
     font-family: "Kanit", sans-serif;
     font-weight: 600;
     font-style: normal;
 }
 
+.dark-theme .task{
+    background-color:#e2cdfd ;
+}
+
 .task-name {
     text-transform: capitalize;
     font-weight: 400;
+    color: black
   }
 .task.done .task-name {
     text-decoration: line-through;
-    color: white;
+    color: var(--active-text-color);
     filter: blur(.2px);
     font-weight: 500;
 }
@@ -54,6 +59,13 @@
     animation: fillSideways 0.3s forwards, popEffect 0.3s ease-in-out; /* Adjust duration as needed */
 }
 
+.dark-theme .task.done{
+    background-image: linear-gradient(to right,  #ba94e9, #a25ef5); /* Example gradient */
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    animation: fillSideways 0.3s forwards, popEffect 0.3s ease-in-out; /* Adjust duration as needed */
+} 
+
 @keyframes unfillSideways {
     from {
         background-size: 100% 100%;
@@ -65,6 +77,13 @@
 
 .task.notDone {
     background-image: linear-gradient(to right, #5cbef3, #2b95ff); /* Same gradient as .done for consistency */
+    background-repeat: no-repeat;
+    background-size: 100% 100%; /* Start fully "filled" */
+    animation: unfillSideways 0.3s forwards;
+}
+
+.dark-theme .task.notDone {
+    background-image: linear-gradient(to right, #a25ef5, #b098cd); /* Same gradient as .done for consistency */
     background-repeat: no-repeat;
     background-size: 100% 100%; /* Start fully "filled" */
     animation: unfillSideways 0.3s forwards;

@@ -77,7 +77,7 @@ export default function Login({ setToken }) {
             <p style={{ fontWeight: 400 }}>
               Don't have an account?{" "}
               <Link to="/signUp">
-                <strong>Sign up</strong>
+                <strong style={{ textDecoration: "underline" }}>Sign up</strong>
               </Link>
             </p>
           </footer>

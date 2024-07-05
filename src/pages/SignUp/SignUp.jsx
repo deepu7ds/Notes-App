@@ -106,7 +106,7 @@ export default function SignUp() {
             <p style={{ fontWeight: 400 }}>
               Already have an account?{" "}
               <Link to="/login">
-                <strong>Login</strong>
+                <strong style={{ textDecoration: "underline" }}>Login</strong>
               </Link>
             </p>
           </footer>

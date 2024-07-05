@@ -20,7 +20,6 @@
 
 .navbar{
   height: 10svh;
-  color: #157dec;
   display: flex;
   align-items: center;
   padding: 10px 20px;
@@ -28,10 +27,12 @@
 }
 
 .navbar h1{
+  color: var(--base);
   font-size: 2.5rem;
-  font-family: "Kanit", sans-serif;
-  font-weight: 600;
-  font-style: normal;
+}
+
+.navbar h1:hover{
+  cursor: pointer;
 }
 
 .user-name {
@@ -42,4 +43,5 @@
   font-family: "Kanit", sans-serif;
   font-weight: 600;
   font-style: normal;
+  color: var(--text-color);
 }

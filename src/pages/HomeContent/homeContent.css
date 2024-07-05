@@ -13,11 +13,14 @@
     align-items: center;
     justify-content: center;
   }
-  
   .main-content img{
     display: block;
     max-width: 90%;
     max-height: 100%;
+  }
+  
+  .dark-theme .main-content img{
+    filter: brightness(.8);
   }
   
   .bottom-panel{
@@ -34,22 +37,28 @@
     padding: 0 15px;
     text-align: center;
     font-size: 2rem; 
-    color: #87c1ff;
+    color: var(--secondary);
   }
   
   .bottom-panel button {
     font-family: "Montserrat", sans-serif;
     padding: 15px 30px; 
     font-size: 1rem; 
-    color: #fff;
-    background-color: #007BFF; 
+    color: var(--active-text-color);
+    background-color: var(--base); 
     border: none;
     border-radius: 5px; 
     cursor: pointer; 
     transition: background-color 0.3s ease; 
+    box-shadow: 0 0 10px var(--box-shadow);
   }
   
   .bottom-panel button:hover {
-    background-color: #0a64c4; 
+    filter: brightness(.95); 
+  }
+
+  .footer-text{
+    font-weight: 300;
+    color: var(--text-color);
   }
   

@@ -14,6 +14,9 @@ import AddToDo from "./pages/AddToDo/AddToDo.jsx";
 function App() {
   const [token, setToken] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light-theme"
+  );
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -53,11 +56,23 @@ function App() {
     });
   }
 
+  useEffect(() => {
+    document.body.className = theme;
+    localStorage.setItem("theme", theme); // Optional: Save to local storage
+  }, [theme]);
+
+  // Step 3: Modify toggleTheme to update the theme state
+  function toggleTheme() {
+    setTheme((prevTheme) =>
+      prevTheme === "light-theme" ? "dark-theme" : "light-theme"
+    );
+  }
+
   return (
     <>
       <div className="app-container">
         <div className="navbar">
-          <h1>Notes</h1>
+          <h1 onClick={toggleTheme}>Notes</h1>
           {token && (
             <h3 className="user-name" onClick={handleProfileClick}>
               Hi, {token.user.user_metadata.name}
