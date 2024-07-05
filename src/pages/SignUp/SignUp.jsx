@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import "./signUp.css";
 import { useState } from "react";
+import "./signUp.css";
 import { supabase } from "../../client.js";
 
 export default function SignUp() {
@@ -9,6 +9,7 @@ export default function SignUp() {
     email: "",
     password: "",
   });
+  const [isChecked, setIsChecked] = useState(false);
 
   const navigate = useNavigate();
 
@@ -41,6 +42,10 @@ export default function SignUp() {
       alert(error);
     }
   }
+
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
   return (
     <>
       <div className="signUp-container">
@@ -92,9 +97,16 @@ export default function SignUp() {
           </label>
           <label className="terms">
             <p>
-              <strong>I agree with the term of use</strong>
+              <strong
+                style={{
+                  fontWeight: 400,
+                  color: isChecked ? "black" : "grey",
+                }}
+              >
+                I agree with the term of use
+              </strong>
             </p>
-            <input type="checkbox" required />
+            <input type="checkbox" onChange={handleCheckboxChange} required />
           </label>
 
           <footer>
