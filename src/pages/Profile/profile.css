@@ -79,20 +79,6 @@
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: bold;
-  box-shadow: 0 0 10px var(--box-shadow);
+  box-shadow: 0 0 5px var(--box-shadow);
   cursor: pointer;
-  background-color: rgb(255, 102, 127);
-  color: white;
-}
-
-.dark-theme .profile-container button{
-  background-color: var(--base);
-}
-.profile-container .sign-out{
-  background-color:  rgb(254, 181, 193);
-  color: black;
-}
-
-.dark-theme .profile-container .sign-out{
-  background-color: rgb(222, 222, 222);
 }

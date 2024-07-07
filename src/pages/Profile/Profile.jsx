@@ -66,7 +66,6 @@ export default function Profile() {
       navigate("/");
     }
   }
-  function handleResetPass() {}
 
   return (
     <>
@@ -92,7 +91,6 @@ export default function Profile() {
           </div>
         </div>
         <hr className="custom-hr" />
-        <button onClick={handleResetPass}>Reset Password</button>
         <button className="sign-out" onClick={handleSignOut}>
           Sign Out
         </button>
