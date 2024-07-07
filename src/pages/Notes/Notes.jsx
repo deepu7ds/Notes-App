@@ -3,13 +3,14 @@ import { supabase } from "../../client.js";
 import "./notes.css";
 import NoteCard from "../../components/NoteCard/NoteCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
-import Spinner from "../../components/Spinner/Spinner.jsx";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 
 export default function Notes() {
   const [openNoteId, setOpenNoteId] = useState(null);
   const [fetchError, setFetchError] = useState(false);
   const [notes, setNotes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const searchInp = useOutletContext();
 
@@ -49,6 +50,7 @@ export default function Notes() {
       sessionStorage.setItem("cachedNotes", JSON.stringify(data)); // Cache the fetched data
     }
     setIsLoading(false); // Step 3: Set loading to false after fetching
+    setIsDeleting(false);
   }
 
   useEffect(() => {
@@ -89,8 +91,11 @@ export default function Notes() {
 
   return (
     <>
-      {isLoading && <Spinner />}
+      {isLoading && <LoadingSpinner />}
       {fetchError && <p>Error fetching notes.</p>}
+      {!isLoading && notes.length == 0 && (
+        <p className="empty-notes">Add Some Notes</p>
+      )}
       <div className="notes">
         {!fetchError &&
           !isLoading &&
@@ -110,6 +115,8 @@ export default function Notes() {
                 open={openNoteId === note.id}
                 clickHandler={handleClick}
                 fetchData={fetchData}
+                isDeleting={isDeleting}
+                setIsDeleting={setIsDeleting}
               />
             ))}
       </div>

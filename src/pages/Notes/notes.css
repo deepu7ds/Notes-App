@@ -6,6 +6,13 @@
     grid-auto-flow: dense; 
 }
 
+.empty-notes{
+  text-align: center;
+  font-weight: 400;
+  margin-top: 20px;
+  color: var(--text-color);
+}
+
 @media (min-width: 630px) {
     .notes {
       grid-template-columns:repeat(auto-fit, minmax(30svw, 1fr));
