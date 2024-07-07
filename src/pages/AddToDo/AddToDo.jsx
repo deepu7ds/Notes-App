@@ -88,7 +88,7 @@ export default function AddToDo() {
             id="title"
             onChange={handleChange}
             placeholder="task.."
-            maxLength={20}
+            maxLength={40}
             required
           />
           <button type="submit">Create</button>
