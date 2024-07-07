@@ -113,6 +113,7 @@
     font-size: 2rem !important;
     filter: drop-shadow(0 0 1px rgb(102, 102, 102));
     cursor: pointer;
+    color: white
 }
 
 .note-deleteIcon{
