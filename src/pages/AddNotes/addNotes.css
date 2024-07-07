@@ -48,6 +48,7 @@
         padding: 10px;
         background-color: var(--primary);
         color: var(--text-color);
+        font-weight: 400;
     }
     
     .addNotes-container form #importance{
