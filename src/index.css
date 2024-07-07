@@ -48,7 +48,14 @@
     -webkit-tap-highlight-color: transparent;
     
 }
-
+input:focus{
+    outline: none;
+    border: none;
+}
+textarea:focus{
+    outline: none;
+    border: none;
+}
 body{
     background-color: var(--background);
     transition: background-color 0.3s ease;
