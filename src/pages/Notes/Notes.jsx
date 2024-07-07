@@ -38,7 +38,8 @@ export default function Notes() {
     const { data, error } = await supabase
       .from("notes")
       .select()
-      .eq("user_id", email);
+      .eq("user_id", email)
+      .order("created_at", { ascending: false });
 
     if (error) {
       console.error("Error fetching data:", error);
@@ -59,7 +60,8 @@ export default function Notes() {
       const { data, error } = await supabase
         .from("notes")
         .select()
-        .eq("user_id", email);
+        .eq("user_id", email)
+        .order("created_at", { ascending: false });
 
       console.log(data);
       console.log(error);
