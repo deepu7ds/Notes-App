@@ -3,12 +3,13 @@ import { supabase } from "../../client.js";
 import "./toDo.css";
 import ToDoCard from "../../components/ToDoCard/ToDoCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
-import Spinner from "../../components/Spinner/Spinner.jsx";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
 
 export default function ToDo() {
   const [fetchError, setFetchError] = useState(false);
   const [todos, setTodos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const searchInp = useOutletContext();
 
@@ -48,6 +49,7 @@ export default function ToDo() {
       setFetchError(false);
     }
     setIsLoading(false);
+    setIsDeleting(false);
   }
   useEffect(() => {
     fetchData();
@@ -96,8 +98,11 @@ export default function ToDo() {
 
   return (
     <>
-      {isLoading && <Spinner />}
+      {isLoading && <LoadingSpinner />}
       {fetchError && <p>error</p>}
+      {!isLoading && todos.length == 0 && (
+        <p className="empty-task">Add Some Task</p>
+      )}
       <div className="todo">
         {!fetchError &&
           !isLoading &&
@@ -114,7 +119,13 @@ export default function ToDo() {
                   );
                 })
                 .map((todo) => (
-                  <ToDoCard key={todo.id} {...todo} fetchData={fetchData} />
+                  <ToDoCard
+                    key={todo.id}
+                    {...todo}
+                    fetchData={fetchData}
+                    isDeleting={isDeleting}
+                    setIsDeleting={setIsDeleting}
+                  />
                 ))}
             </div>
           ))}
