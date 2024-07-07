@@ -128,3 +128,13 @@
 .dark-theme .note-container__active{
     filter: brightness(1) invert(1);
 }
+
+.note-title__active{
+    background-color: transparent;
+    border: none;
+}
+
+.note-content__active{
+    background-color: transparent;
+    border: none;
+}

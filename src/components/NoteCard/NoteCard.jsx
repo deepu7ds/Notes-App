@@ -16,6 +16,37 @@ export default function NoteCard({
 }) {
   // Create a new Date object
   const [center, setCenter] = useState({ x: -50, y: -50 });
+  const [isEditMode, setIsEditMode] = useState(false); // Edit mode state
+  const [editableTitle, setEditableTitle] = useState(title); // Editable title state
+  const [editableContent, setEditableContent] = useState(content); // Editable content state
+
+  const toggleEditMode = () => {
+    setIsEditMode(!isEditMode);
+  };
+
+  const handleTitleChange = (e) => {
+    setEditableTitle(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setEditableContent(e.target.value);
+  };
+
+  const updateNotes = async () => {
+    // Save the changes to the database or state
+    const { error } = await supabase
+      .from("notes")
+      .update({ title: editableTitle, content: editableContent })
+      .eq("id", id);
+    if (error) {
+      console.error("Error updating note:", error);
+    } else {
+      console.log("Note updated successfully");
+      fetchData();
+      toggleEditMode(); // Exit edit mode after saving
+    }
+  };
+
   const handleMouseClick = (e) => {
     const xPercentage = -100 + (e.clientX / window.innerWidth) * 100;
     const yPercentage = -100 + (e.clientY / window.innerHeight) * 100;
@@ -94,20 +125,26 @@ export default function NoteCard({
           >
             {day}
           </div>
-          <h1 className="note-title">{title}</h1>
-          <p className="note-content">{content}</p>
+          <h1 className="note-title">{editableTitle}</h1>
+          <p className="note-content">{editableContent}</p>
           <div
             className="note-date"
             style={{ color: colors[priority].secondary }}
           >
             <strong>{dateString}</strong>
-          </div>{" "}
+          </div>
           {/* Insert the date string here */}
         </>
       </div>
       {open && (
         <>
-          <div className="overlay" onClick={() => clickHandler(id)}></div>
+          <div
+            className="overlay"
+            onClick={() => {
+              clickHandler(id);
+              updateNotes();
+            }}
+          ></div>
           <div
             className={`note-container__active ${open ? "opening" : "closing"}`}
             style={{
@@ -122,8 +159,19 @@ export default function NoteCard({
             >
               {day}
             </div>
-            <h1 className="note-title__active">{title}</h1>
-            <p className="note-content__active">{content}</p>
+
+            <>
+              <input
+                className="note-title__active"
+                value={editableTitle}
+                onChange={handleTitleChange}
+              />
+              <textarea
+                className="note-content__active"
+                value={editableContent}
+                onChange={handleContentChange}
+              />
+            </>
             <div
               className="note-date"
               style={{ color: colors[priority].secondary }}
@@ -132,7 +180,10 @@ export default function NoteCard({
             </div>
             <CloseRoundedIcon
               className="overlay-close"
-              onClick={() => clickHandler(id)}
+              onClick={() => {
+                clickHandler(id);
+                updateNotes();
+              }}
             />
           </div>
         </>
