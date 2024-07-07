@@ -45,14 +45,20 @@
     font-family: "Kanit", sans-serif;
     font-weight: 600;
     font-style: normal;
-    -webkit-tap-highlight-color: transparent;
-    
+    -webkit-tap-highlight-color: transparent;  
 }
+
 input:focus{
     outline: none;
     border: none;
 }
+
 textarea:focus{
+    outline: none;
+    border: none;
+}
+
+select:focus{
     outline: none;
     border: none;
 }
