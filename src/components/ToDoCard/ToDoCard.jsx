@@ -5,8 +5,16 @@ import IconButton from "@mui/material/IconButton";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import DeleteSpinner from "../DeleteSpinner/DeleteSpinner.jsx";
 
-export default function ToDoCard({ id, title, done, fetchData }) {
+export default function ToDoCard({
+  id,
+  title,
+  done,
+  fetchData,
+  isDeleting,
+  setIsDeleting,
+}) {
   const [selected, setSelected] = useState(done);
 
   const handleClick = async () => {
@@ -23,33 +31,50 @@ export default function ToDoCard({ id, title, done, fetchData }) {
   };
 
   const handleDeleteClick = async () => {
+    setIsDeleting(true);
+
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this note?"
+    );
+    if (!isConfirmed) {
+      return; // If the user cancels, exit the function without deleting
+    }
+
     const { error } = await supabase.from("todo").delete().eq("id", id);
 
     if (error) {
       console.error("Error deleting task:", error);
     } else {
-      fetchData(); // Fetch the latest data after deleting a todo
+      fetchData(setIsDeleting); // Fetch the latest data after deleting a todo
     }
   };
 
   return (
     <>
-      <div
-        className={`task ${selected ? "done" : "notDone"}`}
-        onClick={handleClick}
-      >
-        <IconButton>
-          {selected ? <RadioButtonCheckedIcon /> : <RadioButtonUncheckedIcon />}
-        </IconButton>
-        <div className="task-name">{title}</div>
-        <DeleteOutlineOutlinedIcon
-          style={{ cursor: "pointer" }}
-          onClick={(event) => {
-            event.stopPropagation(); // Prevents the click event from reaching the parent div
-            handleDeleteClick();
-          }}
-        />
-      </div>
+      {isDeleting ? (
+        <DeleteSpinner />
+      ) : (
+        <div
+          className={`task ${selected ? "done" : "notDone"}`}
+          onClick={handleClick}
+        >
+          <IconButton>
+            {selected ? (
+              <RadioButtonCheckedIcon />
+            ) : (
+              <RadioButtonUncheckedIcon />
+            )}
+          </IconButton>
+          <div className="task-name">{title}</div>
+          <DeleteOutlineOutlinedIcon
+            style={{ cursor: "pointer" }}
+            onClick={(event) => {
+              event.stopPropagation(); // Prevents the click event from reaching the parent div
+              handleDeleteClick();
+            }}
+          />
+        </div>
+      )}
     </>
   );
 }
