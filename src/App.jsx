@@ -29,6 +29,8 @@ function App() {
   useEffect(() => {
     if (location.pathname === "/") {
       sessionStorage.removeItem("token");
+      sessionStorage.removeItem("cachedNotes");
+      sessionStorage.removeItem("cachedTodos");
       setToken(false);
     }
   }, [location]);
