@@ -26,6 +26,10 @@
   justify-content: space-between;
 }
 
+.theme-regulator{
+  display: flex;
+}
+
 .navbar h1{
   color: var(--base);
   font-size: 2.5rem;

@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import Profile from "./pages/Profile/Profile.jsx";
 import AddNotes from "./pages/AddNotes/AddNotes.jsx";
 import AddToDo from "./pages/AddToDo/AddToDo.jsx";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 function App() {
   const [token, setToken] = useState(false);
@@ -74,7 +76,14 @@ function App() {
     <>
       <div className="app-container">
         <div className="navbar">
-          <h1 onClick={toggleTheme}>Notes</h1>
+          <div className="theme-regulator">
+            <h1 onClick={toggleTheme}>Notes</h1>
+            {theme == "light-theme" ? (
+              <LightModeIcon style={{ color: "#ff9900" }} />
+            ) : (
+              <DarkModeIcon style={{ color: "white" }} />
+            )}
+          </div>
           {token && (
             <h3 className="user-name" onClick={handleProfileClick}>
               Hi, {token.user.user_metadata.name}
