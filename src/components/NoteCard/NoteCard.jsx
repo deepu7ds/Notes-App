@@ -74,7 +74,7 @@ export default function NoteCard({
       "Are you sure you want to delete this note?"
     );
     if (!isConfirmed) {
-      return; // If the user cancels, exit the function without deleting
+      return;
     }
 
     setIsDeleting(true);
@@ -83,7 +83,6 @@ export default function NoteCard({
     if (error) {
       console.error("Error deleting note:", error);
     } else {
-      console.log("Note deleted successfully");
       fetchData();
     }
   }

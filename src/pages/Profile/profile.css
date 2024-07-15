@@ -79,6 +79,6 @@
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: bold;
-  box-shadow: 0 0 5px var(--box-shadow);
+  box-shadow: 0 0 3px var(--box-shadow);
   cursor: pointer;
 }

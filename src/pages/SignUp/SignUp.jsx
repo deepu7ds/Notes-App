@@ -46,6 +46,10 @@ export default function SignUp() {
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
+
+  const handleLoginInstead = () => {
+    navigate("/login", { replace: true });
+  };
   return (
     <>
       <div className="signUp-container">
@@ -117,9 +121,12 @@ export default function SignUp() {
 
             <p style={{ fontWeight: 400 }}>
               Already have an account?{" "}
-              <Link to="/login">
-                <strong style={{ textDecoration: "underline" }}>Login</strong>
-              </Link>
+              <strong
+                style={{ textDecoration: "underline" }}
+                onClick={handleLoginInstead}
+              >
+                Login
+              </strong>
             </p>
           </footer>
         </form>

@@ -31,15 +31,14 @@ export default function ToDoCard({
   };
 
   const handleDeleteClick = async () => {
-    setIsDeleting(true);
-
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this note?"
     );
     if (!isConfirmed) {
-      return; // If the user cancels, exit the function without deleting
+      return;
     }
 
+    setIsDeleting(true);
     const { error } = await supabase.from("todo").delete().eq("id", id);
 
     if (error) {

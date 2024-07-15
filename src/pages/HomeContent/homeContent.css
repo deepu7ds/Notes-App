@@ -50,7 +50,7 @@
     border-radius: 5px; 
     cursor: pointer; 
     transition: background-color 0.3s ease; 
-    box-shadow: 0 0 10px var(--box-shadow);
+    box-shadow: 0 0 5px var(--box-shadow);
   }
   
   .bottom-panel button:hover {

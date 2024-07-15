@@ -69,6 +69,10 @@ form .user-input{
   font-style: normal;
 }
 
+form .user-input:focus {
+    outline: 2px solid black;
+}
+
 
 .terms{
     width: 100%;
@@ -94,8 +98,7 @@ footer button{
     font-optical-sizing: auto;
     font-style: normal;
     font-weight: bold;
-    box-shadow: 0 0 10px var(--box-shadow);
-    text-shadow: 0 0 2px rgb(255, 207, 207);
+    box-shadow: 0 0 5px var(--box-shadow);
     cursor: pointer;
 }
 

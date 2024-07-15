@@ -36,6 +36,10 @@ export default function Login({ setToken }) {
       alert(error);
     }
   }
+
+  const handleSignUpInstead = () => {
+    navigate("/signUp", { replace: true });
+  };
   return (
     <>
       <div className="login-container">
@@ -76,9 +80,12 @@ export default function Login({ setToken }) {
             <span>OR</span>
             <p style={{ fontWeight: 400 }}>
               Don't have an account?{" "}
-              <Link to="/signUp">
-                <strong style={{ textDecoration: "underline" }}>Sign up</strong>
-              </Link>
+              <strong
+                style={{ textDecoration: "underline" }}
+                onClick={handleSignUpInstead}
+              >
+                Sign up
+              </strong>
             </p>
           </footer>
         </form>
