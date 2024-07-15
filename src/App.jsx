@@ -76,8 +76,8 @@ function App() {
     <>
       <div className="app-container">
         <div className="navbar">
-          <div className="theme-regulator">
-            <h1 onClick={toggleTheme}>Notes</h1>
+          <div onClick={toggleTheme} className="theme-regulator">
+            <h1>Notes</h1>
             {theme == "light-theme" ? (
               <LightModeIcon style={{ color: "#ff9900" }} />
             ) : (

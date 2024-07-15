@@ -70,7 +70,7 @@ form .user-input{
 }
 
 form .user-input:focus {
-    outline: 2px solid black;
+    outline: 2px solid var(--text-color);
 }
 
 
