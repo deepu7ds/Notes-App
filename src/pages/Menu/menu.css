@@ -20,7 +20,7 @@
         transform: translateY(100%);
     }
     to {
-      transform: translateY(0);
+        transform: translateY(0);
     }
 }
 .menu-container header{
@@ -47,11 +47,14 @@
 } 
 
 ul{
+    position: sticky;
+    top: 0;
     display: flex;
     list-style-type: none;
     padding: 20px;
     justify-content: center;
     gap: 20px;
+    z-index: 1000;
 }
 
 li{
