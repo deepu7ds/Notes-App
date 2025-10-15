@@ -2,8 +2,8 @@ import "./noteCard.css";
 import { useState } from "react";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { supabase } from "../../client.js";
 import DeleteSpinner from "../DeleteSpinner/DeleteSpinner.jsx";
+import { deleteNote, updateNote } from "../../utils/localStorage.js";
 
 export default function NoteCard({
   id,
@@ -67,7 +67,7 @@ export default function NoteCard({
     },
   ];
 
-  async function deleteHandler(event) {
+  function deleteHandler(event) {
     event.stopPropagation();
 
     const isConfirmed = window.confirm(
@@ -78,12 +78,11 @@ export default function NoteCard({
     }
 
     setIsDeleting(true);
-    const { error } = await supabase.from("notes").delete().eq("id", id);
-
-    if (error) {
-      console.error("Error deleting note:", error);
-    } else {
+    try {
+      deleteNote(id);
       fetchData();
+    } catch (error) {
+      console.error("Error deleting note:", error);
     }
   }
 
@@ -95,17 +94,14 @@ export default function NoteCard({
     setEditableContent(e.target.value);
   };
 
-  const updateNotes = async () => {
-    // Save the changes to the database or state
-    const { error } = await supabase
-      .from("notes")
-      .update({ title: editableTitle, content: editableContent })
-      .eq("id", id);
-    if (error) {
-      console.error("Error updating note:", error);
-    } else {
+  const updateNotes = () => {
+    // Save the changes to localStorage
+    try {
+      updateNote(id, { title: editableTitle, content: editableContent });
       console.log("Note updated successfully");
       fetchData();
+    } catch (error) {
+      console.error("Error updating note:", error);
     }
   };
   return (

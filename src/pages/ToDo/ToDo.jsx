@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../client.js";
 import "./toDo.css";
 import ToDoCard from "../../components/ToDoCard/ToDoCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
+import { getTodos } from "../../utils/localStorage.js";
 
 export default function ToDo() {
   const [fetchError, setFetchError] = useState(false);
@@ -13,70 +13,24 @@ export default function ToDo() {
 
   const searchInp = useOutletContext();
 
-  let email;
-  const token = sessionStorage.getItem("token");
-  if (token) {
-    const parsedToken = JSON.parse(token);
-    email = parsedToken.user.user_metadata.email;
-  }
-
-  const cachedTodos = sessionStorage.getItem("cachedTodos");
-  // Check cache before fetching data
-  useEffect(() => {
-    if (cachedTodos) {
-      setTodos(JSON.parse(cachedTodos));
-    } else {
-      fetchData();
-    }
-  }, [email]);
-
-  // Fetch the latest data
-  async function fetchData() {
-    if (!cachedTodos) {
+  // Fetch the latest data from localStorage
+  const fetchData = () => {
+    try {
       setIsLoading(true);
-    }
-    const { data, error } = await supabase
-      .from("todo")
-      .select()
-      .eq("user_id", email);
-
-    if (error) {
-      console.error("Error fetching data:", error);
-      setFetchError(true);
-    } else {
-      setTodos(data);
-      sessionStorage.setItem("cachedTodos", JSON.stringify(data)); // Cache the fetched data
+      const localTodos = getTodos();
+      setTodos(localTodos);
       setFetchError(false);
+    } catch (error) {
+      console.error("Error fetching todos:", error);
+      setFetchError(true);
+    } finally {
+      setIsLoading(false);
+      setIsDeleting(false);
     }
-    setIsLoading(false);
-    setIsDeleting(false);
-  }
+  };
+
   useEffect(() => {
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchNotes = async () => {
-      const { data, error } = await supabase
-        .from("todo")
-        .select()
-        .eq("user_id", email)
-        .order("created_at", { ascending: false });
-
-      console.log(data);
-      console.log(error);
-      if (error) {
-        setFetchError("could not fetch the todo");
-        setTodos(null);
-        console.log(error);
-      }
-      if (data) {
-        setTodos(data);
-        setFetchError(false);
-      }
-    };
-
-    fetchNotes();
   }, []);
 
   const sortedTodos = [...todos].sort(

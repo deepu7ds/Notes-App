@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import "./addNotes.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { supabase } from "../../client.js";
+import { addNote } from "../../utils/localStorage.js";
 
 export default function AddNotes() {
   const [noteData, setNoteData] = useState({
-    user_id: "",
     title: "",
     content: "",
     importance: "",
@@ -32,41 +31,29 @@ export default function AddNotes() {
 
   const navigate = useNavigate();
 
-  let data;
-  const token = sessionStorage.getItem("token");
-  if (token) {
-    data = JSON.parse(token);
-  }
-
   function handleChange(event) {
     setNoteData((prevNoteData) => {
       return {
         ...prevNoteData,
-        user_id: data?.user.user_metadata.email,
         [event.target.name]: event.target.value,
       };
     });
-    console.log(noteData);
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
-    const { data, error } = await supabase.from("notes").insert([
-      {
-        user_id: noteData.user_id,
+    try {
+      addNote({
         title: noteData.title,
         content: noteData.content,
         importance: noteData.importance,
-      },
-    ]);
-
-    if (error) {
-      console.error("Error inserting note:", error);
-    } else {
+      });
+      
       navigate("/menu/notes", { replace: true });
       window.location.reload();
-      console.log("Note inserted successfully:", data);
+    } catch (error) {
+      console.error("Error inserting note:", error);
     }
   }
 

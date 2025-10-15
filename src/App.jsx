@@ -12,9 +12,10 @@ import AddNotes from "./pages/AddNotes/AddNotes.jsx";
 import AddToDo from "./pages/AddToDo/AddToDo.jsx";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { isGuestUser, clearGuestSession } from "./utils/localStorage.js";
 
 function App() {
-  const [token, setToken] = useState(false);
+  const [isGuest, setIsGuest] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "light-theme"
@@ -23,28 +24,18 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (token) {
-    sessionStorage.setItem("token", JSON.stringify(token));
-  }
-
-  // condition to make token false when user went to home page
+  // Check if user is a guest
   useEffect(() => {
-    if (location.pathname === "/") {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("cachedNotes");
-      sessionStorage.removeItem("cachedTodos");
-      setToken(false);
-    }
+    setIsGuest(isGuestUser());
   }, [location]);
 
-  // used so that when page is reloaded the the session won't expire because token was stored in local storage
+  // condition to make guest false when user went to home page
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      const data = JSON.parse(token);
-      setToken(data);
+    if (location.pathname === "/") {
+      clearGuestSession();
+      setIsGuest(false);
     }
-  }, []);
+  }, [location]);
 
   //handle profile click
   function handleProfileClick(e) {
@@ -84,9 +75,9 @@ function App() {
               <DarkModeIcon style={{ color: "white" }} />
             )}
           </div>
-          {token && (
+          {isGuest && (
             <h3 className="user-name" onClick={handleProfileClick}>
-              Hi, {token.user.user_metadata.name}
+              Hi, Guest
             </h3>
           )}
         </div>
@@ -94,7 +85,7 @@ function App() {
         {/* TODO : write condition when user is not logged in not to render any thing and return another page to login first  */}
         <Routes>
           <Route path="signUp" element={<SignUp />}></Route>
-          <Route path="login" element={<Login setToken={setToken} />}></Route>
+          <Route path="login" element={<Login />}></Route>
           <Route path="profile" element={<Profile />}></Route>
 
           <Route path="menu" element={<Menu />}>

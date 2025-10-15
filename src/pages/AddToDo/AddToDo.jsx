@@ -1,14 +1,12 @@
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import "./addToDo.css";
-import { supabase } from "../../client.js";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { addTodo } from "../../utils/localStorage.js";
 
 export default function AddToDo() {
   const [todoData, setTodoData] = useState({
-    user_id: "",
     title: "",
-    done: "",
   });
 
   const [center, setCenter] = useState({ x: -50, y: -50 });
@@ -30,44 +28,32 @@ export default function AddToDo() {
   }, []);
 
   const navigate = useNavigate();
-  let data;
-  const token = sessionStorage.getItem("token");
-  if (token) {
-    data = JSON.parse(token);
-  }
 
   function handleChange(event) {
     setTodoData((prevTodoData) => {
       return {
         ...prevTodoData,
-        user_id: data?.user.user_metadata.email,
         [event.target.name]: event.target.value,
       };
     });
-    console.log(todoData);
   }
 
   function closeClickHandler() {
     navigate("/menu/todo");
   }
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
 
-    const { data, error } = await supabase.from("todo").insert([
-      {
-        user_id: todoData.user_id,
+    try {
+      addTodo({
         title: todoData.title,
-        done: false,
-      },
-    ]);
+      });
 
-    if (error) {
-      console.error("Error inserting todo:", error);
-    } else {
       navigate("/menu/todo", { replace: true });
       window.location.reload();
-      console.log("todo inserted successfully:", data);
+    } catch (error) {
+      console.error("Error inserting todo:", error);
     }
   }
 

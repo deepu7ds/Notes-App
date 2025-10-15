@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../client.js";
 import "./notes.css";
 import NoteCard from "../../components/NoteCard/NoteCard.jsx";
 import { Outlet, useOutletContext } from "react-router";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner.jsx";
+import { getNotes } from "../../utils/localStorage.js";
 
 export default function Notes() {
   const [openNoteId, setOpenNoteId] = useState(null);
@@ -14,71 +14,24 @@ export default function Notes() {
 
   const searchInp = useOutletContext();
 
-  let email;
-  const token = sessionStorage.getItem("token");
-  if (token) {
-    const parsedToken = JSON.parse(token);
-    email = parsedToken.user.user_metadata.email;
-  }
-  const cachedNotes = sessionStorage.getItem("cachedNotes");
-
-  // Check cache before fetching data
-  useEffect(() => {
-    if (cachedNotes) {
-      setNotes(JSON.parse(cachedNotes));
-    } else {
-      fetchData();
-    }
-  }, [email]);
-
-  // Fetch the latest data
-  async function fetchData() {
-    if (!cachedNotes) {
-      setIsLoading(true); // Step 2: Set loading to true before fetching
-    }
-    const { data, error } = await supabase
-      .from("notes")
-      .select()
-      .eq("user_id", email)
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      console.error("Error fetching data:", error);
+  // Fetch data from localStorage
+  const fetchData = () => {
+    try {
+      setIsLoading(true);
+      const localNotes = getNotes();
+      setNotes(localNotes);
+      setFetchError(false);
+    } catch (error) {
+      console.error("Error fetching notes:", error);
       setFetchError(true);
-    } else {
-      setNotes(data); // Assuming you want to set the fetched data to notes
-      sessionStorage.setItem("cachedNotes", JSON.stringify(data)); // Cache the fetched data
+    } finally {
+      setIsLoading(false);
+      setIsDeleting(false);
     }
-    setIsLoading(false); // Step 3: Set loading to false after fetching
-    setIsDeleting(false);
-  }
+  };
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchNotes = async () => {
-      const { data, error } = await supabase
-        .from("notes")
-        .select()
-        .eq("user_id", email)
-        .order("created_at", { ascending: false });
-
-      console.log(data);
-      console.log(error);
-      if (error) {
-        setFetchError("could not fetch the notes");
-        setNotes(null);
-        console.log(error);
-      }
-      if (data) {
-        setNotes(data);
-        setFetchError(false);
-      }
-    };
-
-    fetchNotes();
   }, []);
 
   const handleClick = (id) => {

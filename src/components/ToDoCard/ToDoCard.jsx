@@ -1,11 +1,11 @@
 import "./toDoCard.css";
 import { useState } from "react";
-import { supabase } from "../../client.js";
 import IconButton from "@mui/material/IconButton";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import DeleteSpinner from "../DeleteSpinner/DeleteSpinner.jsx";
+import { updateTodo, deleteTodo } from "../../utils/localStorage.js";
 
 export default function ToDoCard({
   id,
@@ -17,34 +17,30 @@ export default function ToDoCard({
 }) {
   const [selected, setSelected] = useState(done);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     setSelected(!selected);
-
-    const { error } = await supabase
-      .from("todo")
-      .update({ done: !selected })
-      .eq("id", id);
-
-    if (error) {
+    
+    try {
+      updateTodo(id, { done: !selected });
+    } catch (error) {
       console.error("Error updating task:", error);
     }
   };
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = () => {
     const isConfirmed = window.confirm(
-      "Are you sure you want to delete this note?"
+      "Are you sure you want to delete this task?"
     );
     if (!isConfirmed) {
       return;
     }
 
     setIsDeleting(true);
-    const { error } = await supabase.from("todo").delete().eq("id", id);
-
-    if (error) {
+    try {
+      deleteTodo(id);
+      fetchData(); // Fetch the latest data after deleting a todo
+    } catch (error) {
       console.error("Error deleting task:", error);
-    } else {
-      fetchData(setIsDeleting); // Fetch the latest data after deleting a todo
     }
   };
 
